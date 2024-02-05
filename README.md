@@ -1,8 +1,14 @@
-# React + Vite
+# Hotel management system - FRONTEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Technologies
+- React
+- Tailwind CSS
+- Axios
 
-Currently, two official plugins are available:
+## Description
+This is the frontend part of the hotel management system. It is a web application that allows the user to manage the hotel's rooms, clients, and reservations. The admin can also see the statistics of the hotel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Instructions to run the project
+1. Clone the repository
+2. Run: `npm install`
+3. Run: `npm run dev`
