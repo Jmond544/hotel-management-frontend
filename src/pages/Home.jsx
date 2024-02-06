@@ -11,13 +11,49 @@ const Home = () => {
       </header>
 
       <section className="my-8">
-        <h2 className="text-2xl font-semibold mb-4">Descubre nuestras habitaciones</h2>
-        {/* Add room components or display relevant information here */}
+        <h2 className="text-2xl font-semibold mb-4">
+          Descubre nuestras habitaciones
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
       </section>
 
       <section className="my-8">
         <h2 className="text-2xl font-semibold mb-4">Ofertas especiales</h2>
-        {/* Display any special offers or promotions */}
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
+          tenetur dolorum eligendi totam dolore blanditiis, aliquid perspiciatis
+          accusamus alias placeat omnis illum ex repellat minus dolor quis
+          quidem. Nihil, deserunt?
+        </p>
       </section>
 
       <section className="my-8">
