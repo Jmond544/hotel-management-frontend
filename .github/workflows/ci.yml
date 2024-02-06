@@ -1,0 +1,31 @@
+name: Prettier
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install npm dependencies
+        run: npm install prettier
+
+      - name: Run prettier
+        run: npm run format
+
+      - name: Check git status
+        run: git status
+
+      - name: Publish to GitHub Action
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

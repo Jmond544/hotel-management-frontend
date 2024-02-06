@@ -12,15 +12,13 @@ function App() {
     <>
       <HashRouter>
         <Header />
-        <div className="pt-16">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/register" element={<RegisterReservation />} />
-            <Route path="/modify" element={<ModifyReservation />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>{" "}
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<RegisterReservation />} />
+          <Route path="/modify" element={<ModifyReservation />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>{" "}
       </HashRouter>
     </>
   );

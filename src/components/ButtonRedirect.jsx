@@ -14,7 +14,7 @@ export default function ButtonRedirect({
     <Link
       to={path}
       className={`p-2 rounded-lg hover:bg-slate-200 hover:underline transition-all duration-300 ${
-        active ? "bg-slate-200" : ""
+        active ? "bg-slate-200/50" : ""
       }`}
       onClick={handleClick}
     >

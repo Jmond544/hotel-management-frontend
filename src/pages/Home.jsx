@@ -2,10 +2,21 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="container mx-auto p-4">
-      <header className="text-center my-8">
-        <h1 className="text-4xl font-bold">Bienvenido a Dolphin Hotel</h1>
-        <p className="text-lg text-gray-600">
+    <div className="container mx-auto p-4 z-30">
+      <div className="absolute overflow-hidden h-screen w-screen top-0 left-0 right-0 z-10">
+        <video
+          className="w-full object-cover h-full"
+          autoPlay
+          muted
+          loop
+          src="/video_hotel.mp4"
+        ></video>
+      </div>
+      <header className="flex flex-col gap-2 h-screen text-center justify-center items-center align-middle">
+        <h1 className="text-4xl text-slate-900 font-bold z-30 bg-slate-50/50 px-6 py-1 rounded-2xl backdrop-blur">
+          Bienvenido a Dolphin Hotel
+        </h1>
+        <p className="text-lg italic text-slate-950 z-30 bg-slate-400/50 px-6 py-1 rounded-2xl backdrop-blur-sm">
           Su destino ideal para confort y lujo
         </p>
       </header>

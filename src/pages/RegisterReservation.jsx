@@ -1,5 +1,3 @@
 export default function RegisterReservation() {
-  return (
-    <div>RegisterRservation</div>
-  )
+  return <div className="pt-16">RegisterRservation</div>;
 }

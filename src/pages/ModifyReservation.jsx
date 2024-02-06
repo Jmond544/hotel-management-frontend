@@ -1,5 +1,3 @@
 export default function ModifyReservation() {
-  return (
-    <div>ModifyReservation</div>
-  )
+  return <div className="pt-16">ModifyReservation</div>;
 }
