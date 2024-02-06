@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <div className="fixed top-0 w-full backdrop-blur border-b border-slate-900/10 dark:border-slate-300/10 z-50">
-      <nav className="relative flex flex-row justify-between py-3 px-10 lg:px-20 xl:px-40 items-center h-16 font-bold text-slate-950 dark:text-slate-200 z-50">
+      <nav className="bg-slate-50/10 relative flex flex-row justify-between py-3 px-10 lg:px-20 xl:px-40 items-center h-16 font-bold text-slate-950 dark:text-slate-200 z-50">
         <div className="flex flex-row items-center gap-4">
           <GiDolphin className="text-3xl text-slate-900" />
           <h1>DOLPHIN HOTEL</h1>
