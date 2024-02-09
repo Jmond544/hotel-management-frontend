@@ -17,7 +17,7 @@ export default function RoomsSelected({ roomsSelected, setRoomsSelected }) {
             key={index}
           >
             <IoIosCloseCircle
-              className="hover:text-red-800 transition-all duration-300"
+              className="hover:text-red-800 transition-all duration-300 cursor-pointer"
               onClick={() => handleClick(room)}
             />
             <p>{room}</p>

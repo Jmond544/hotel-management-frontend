@@ -5,6 +5,7 @@ import { IoMail } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa6";
 import TextInput from "../components/TextInput";
 import SelectRoom from "../sections/SelectRoom";
+import InsertHuespedes from "../sections/InsertHuespedes";
 
 export default function RegisterReservation() {
   const formik = useFormik({
@@ -55,7 +56,10 @@ export default function RegisterReservation() {
   return (
     <div className="pt-20 flex flex-col gap-4">
       <h1 className="text-center text-xl font-bold">Registro de reserva</h1>
-      <form onSubmit={formik.handleSubmit} className="px-10 lg:px-20 xl:px-40 flex flex-col gap-6">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="px-10 lg:px-20 xl:px-40 flex flex-col gap-6"
+      >
         <div className="flex flex-row gap-4">
           <div className="container flex flex-col gap-4 p-4 md:p-8 shadow-xl border rounded-2xl border-slate-900/20 dark:border-slate-300/20 justify-start items-start">
             <h2 className="text-lg font-bold">Información de contacto</h2>
@@ -149,6 +153,9 @@ export default function RegisterReservation() {
         </div>
         <div className="container flex flex-col gap-4 p-4 md:p-8 shadow-xl border rounded-2xl border-slate-900/20 dark:border-slate-300/20 justify-start items-start">
           <SelectRoom />
+        </div>
+        <div className="container flex flex-col gap-4 p-4 md:p-8 shadow-xl border rounded-2xl border-slate-900/20 dark:border-slate-300/20 justify-start items-start">
+          <InsertHuespedes/>
         </div>
         <button
           className="bg-slate-900 dark:bg-slate-300 text-slate-50 w-full font-bold py-2 px-4 rounded-2xl mt-4 hover:bg-slate-900/90 dark:hover:bg-slate-300/90 transition-all duration-300 ease-in-out"
