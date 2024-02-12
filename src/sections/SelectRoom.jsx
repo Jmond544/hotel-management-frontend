@@ -4,11 +4,10 @@ import ImagesRooms from "../components/ImagesRooms";
 import FloorButton from "../components/FloorButton";
 import RoomsSelected from "../components/RoomsSelected";
 
-export default function SelectRoom() {
+export default function SelectRoom({ roomsSelected, setRoomsSelected }) {
   const [activeButton, setActiveButton] = useState(1);
   const [typeRoom, setTypeRoom] = useState("Classic");
   const [numFloor, setNumFloor] = useState(1);
-  const [roomsSelected, setRoomsSelected] = useState([]);
   return (
     <div className="flex flex-col gap-4 w-full ">
       <h2 className="text-lg font-bold">Selecciona una habitación</h2>

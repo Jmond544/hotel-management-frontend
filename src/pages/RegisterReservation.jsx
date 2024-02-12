@@ -2,23 +2,61 @@ import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { IoMail } from "react-icons/io5";
+import { MdOutlineSkipNext } from "react-icons/md";
 import { FaPhone } from "react-icons/fa6";
 import TextInput from "../components/TextInput";
 import SelectRoom from "../sections/SelectRoom";
-import InsertHuespedes from "../sections/InsertHuespedes";
+import { useNavigate } from "react-router-dom";
+import { useReservationInput } from "../store/reservationInput";
+import { useEffect, useState } from "react";
 
 export default function RegisterReservation() {
+  const {
+    mailPago,
+    telefonoPago,
+    tipoServicio,
+    fechaInicio,
+    fechaFin,
+    habitaciones,
+    setMailPago,
+    setTelefonoPago,
+    setTipoServicio,
+    setFechaInicio,
+    setFechaFin,
+    setHabitaciones,
+    setStatusPartialComplete,
+  } = useReservationInput();
+  const [roomsSelected, setRoomsSelected] = useState(
+    habitaciones.map((room) => room.numero)
+  );
+
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      email: "",
-      phone: "",
-      tipoServicio: "",
-      fechaInicio: null,
-      fechaFin: null,
+      email: mailPago ? mailPago : "",
+      phone: telefonoPago ? telefonoPago : "",
+      tipoServicio: tipoServicio ? tipoServicio : "",
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      habitaciones: roomsSelected,
     },
 
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      setMailPago({ mailPago: values.email });
+      setTelefonoPago({ telefonoPago: values.phone });
+      setTipoServicio({ tipoServicio: values.tipoServicio });
+      setFechaInicio({
+        fechaInicio: new Date(values.fechaInicio).toISOString().slice(0, 10),
+      });
+      setFechaFin({
+        fechaFin: new Date(values.fechaFin).toISOString().slice(0, 10),
+      });
+      setHabitaciones({
+        habitaciones: roomsSelected.map((room) => ({ numero: room })),
+      });
+      setStatusPartialComplete({ statusPartialComplete: true });
+      navigate("/register-huespedes");
     },
 
     validate: (values) => {
@@ -53,8 +91,14 @@ export default function RegisterReservation() {
     },
   });
 
+  useEffect (() => {
+    if (tipoServicio) {
+      formik.setFieldValue("tipoServicio", tipoServicio);
+    }
+  } , []);
+
   return (
-    <div className="pt-20 flex flex-col gap-4">
+    <div className="pt-20 pb-10 flex flex-col gap-4">
       <h1 className="text-center text-xl font-bold">Registro de reserva</h1>
       <form
         onSubmit={formik.handleSubmit}
@@ -93,7 +137,7 @@ export default function RegisterReservation() {
                 id="tipoServicio"
                 name="tipoServicio"
                 onChange={formik.handleChange}
-                value={formik.values.category}
+                value={formik.values.tipoServicio}
                 className="outline-none border-b border-slate-900/20 dark:border-slate-300/20 w-full"
               >
                 <option value="">Selecciona el tipo de servicio</option>
@@ -152,16 +196,17 @@ export default function RegisterReservation() {
           </div>
         </div>
         <div className="container flex flex-col gap-4 p-4 md:p-8 shadow-xl border rounded-2xl border-slate-900/20 dark:border-slate-300/20 justify-start items-start">
-          <SelectRoom />
-        </div>
-        <div className="container flex flex-col gap-4 p-4 md:p-8 shadow-xl border rounded-2xl border-slate-900/20 dark:border-slate-300/20 justify-start items-start">
-          <InsertHuespedes/>
+          <SelectRoom
+            roomsSelected={roomsSelected}
+            setRoomsSelected={setRoomsSelected}
+          />
         </div>
         <button
-          className="bg-slate-900 dark:bg-slate-300 text-slate-50 w-full font-bold py-2 px-4 rounded-2xl mt-4 hover:bg-slate-900/90 dark:hover:bg-slate-300/90 transition-all duration-300 ease-in-out"
+          className="flex flex-row gap-2 items-center justify-center ml-auto bg-slate-900 dark:bg-slate-300 text-slate-50 w-40 font-bold py-2 px-4 rounded-2xl mt-4 hover:bg-slate-900/90 dark:hover:bg-slate-300/90 transition-all duration-300 ease-in-out"
           type="submit"
         >
-          Registrar
+          <p>Siguiente</p>
+          <MdOutlineSkipNext className="text-2xl" />
         </button>
       </form>
     </div>

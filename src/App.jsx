@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Header from "./components/Header";
 import RegisterReservation from "./pages/RegisterReservation";
+import RegisterHuespedes from "./pages/RegisterHuespedes";
 import ModifyReservation from "./pages/ModifyReservation";
 import Login from "./pages/Login";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/register" element={<RegisterReservation />} />
+          <Route path="/register-huespedes" element={<RegisterHuespedes />} />
+          <Route path="/register-reservation" element={<RegisterReservation />} />
           <Route path="/modify" element={<ModifyReservation />} />
           <Route path="/login" element={<Login />} />
         </Routes>{" "}

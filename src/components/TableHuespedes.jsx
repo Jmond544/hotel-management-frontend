@@ -10,26 +10,17 @@ import {
   Title,
 } from "@tremor/react";
 
-const data = [
-  {
-    nombre: "Viola Amherd",
-    apellido: "Federal Councillor",
-    dni: "98798798",
-    telefono: 123123123,
-    mail: "juan@juan.com",
-  },
-];
 
-export default function TableHuespedes() {
+export default function TableHuespedes({ data }) {
   return (
     <div>
       <Card>
-        <Title>List of Swiss Federal Councillours</Title>
+        <Title>Listado de huespedes registrados</Title>
         <Table className="mt-5">
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Nombre</TableHeaderCell>
-              <TableHeaderCell>Apellido</TableHeaderCell>
+              <TableHeaderCell>Nombres</TableHeaderCell>
+              <TableHeaderCell>Apellidos</TableHeaderCell>
               <TableHeaderCell>DNI</TableHeaderCell>
               <TableHeaderCell>Teléfono</TableHeaderCell>
               <TableHeaderCell>Mail</TableHeaderCell>
