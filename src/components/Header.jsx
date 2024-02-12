@@ -31,7 +31,7 @@ export default function Header() {
           </li>
           <li>
             <ButtonRedirect
-              path="/register"
+              path="/register-reservation"
               text="Registrar reserva"
               setActiveButton={setActiveButton}
               active={activeButton === "/register"}

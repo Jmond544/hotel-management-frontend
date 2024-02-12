@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 export const useReservationInput = create((set) => ({
-  mailPago: "",
-  telefonoPago: "",
-  tipoServicio: "",
+  mailPago: null,
+  telefonoPago: null,
+  tipoServicio: null,
   fechaInicio: null,
   fechaFin: null,
   habitaciones: [],

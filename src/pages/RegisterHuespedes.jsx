@@ -3,19 +3,38 @@ import TextInput from "../components/TextInput";
 import TableHuespedes from "../components/TableHuespedes";
 import { FaUser, FaAddressCard, FaPhoneAlt } from "react-icons/fa";
 import { IoMail, IoAddCircle } from "react-icons/io5";
+import { FaPaypal } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useReservationInput } from "../store/reservationInput";
 import { useNavigate } from "react-router-dom";
+import { createReservationRequest } from "../api/reservation.api.js";
+import { createPaymentRequest } from "../api/payment.api.js";
 
 export default function RegisterReservation() {
-  const [huespedes, setHuespedes] = useState([]);
   const data = useReservationInput.getState();
+  const [huespedes, setHuespedes] = useState(data.huespedes);
   const { setListHuespedes, statusPartialComplete } = useReservationInput();
+  const [isSending, setIsSending] = useState(false);
   const navigate = useNavigate();
+
+  const handleButton = async () => {
+    setIsSending(true);
+    const resultPayment = await createPaymentRequest({
+      data,
+    });
+    console.log(resultPayment);
+    if (resultPayment.status == 200) {
+      const { message, status } = await createReservationRequest({ data });
+      console.log(message);
+      console.log(status);
+    }
+    setIsSending(false);
+  };
+
   const formik = useFormik({
     initialValues: {
-      nombres: "",
-      apellidos: "",
+      nombre: "",
+      apellido: "",
       dni: "",
       telefono: "",
       mail: "",
@@ -30,15 +49,15 @@ export default function RegisterReservation() {
     validate: (values) => {
       const errors = {};
 
-      if (!values.nombres) {
-        errors.nombres = "Requerido";
-      } else if (values.nombres.length > 50) {
-        errors.nombres = "Los nombres deben tener menos de 50 caracteres";
+      if (!values.nombre) {
+        errors.nombre = "Requerido";
+      } else if (values.nombre.length > 50) {
+        errors.nombre = "Los nombres deben tener menos de 50 caracteres";
       }
-      if (!values.apellidos) {
-        errors.apellidos = "Requerido";
-      } else if (values.apellidos.length > 50) {
-        errors.apellidos = "Los apellidos deben tener menos de 50 caracteres";
+      if (!values.apellido) {
+        errors.apellido = "Requerido";
+      } else if (values.apellido.length > 50) {
+        errors.apellido = "Los apellidos deben tener menos de 50 caracteres";
       }
       if (!values.dni) {
         errors.dni = "Requerido";
@@ -68,7 +87,7 @@ export default function RegisterReservation() {
 
   useEffect(() => {
     if (!statusPartialComplete) {
-      navigate("/register");
+      navigate("/register-reservation");
     }
   }, []);
 
@@ -81,7 +100,7 @@ export default function RegisterReservation() {
             <div className="flex flex-wrap justify-center gap-8">
               <TextInput
                 formik={formik}
-                id="nombres"
+                id="nombre"
                 placeholder="Ingrese sus nombres"
                 type="text"
                 icon={<FaUser />}
@@ -89,7 +108,7 @@ export default function RegisterReservation() {
               />
               <TextInput
                 formik={formik}
-                id="apellidos"
+                id="apellido"
                 placeholder="Ingrese sus apellidos"
                 type="text"
                 icon={<FaUser />}
@@ -133,10 +152,23 @@ export default function RegisterReservation() {
         </form>
         <TableHuespedes data={huespedes} />
         <button
-          className="text-center items-center gap-4 bg-slate-900 dark:bg-slate-300 text-slate-50 font-bold py-2 px-4 rounded-2xl mt-4 hover:bg-slate-900/90 dark:hover:bg-slate-300/90 transition-all duration-300 ease-in-out"
+          className="flex flex-row justify-center text-center items-center gap-4 bg-yellow-500  font-bold py-2 px-4 rounded-2xl mt-4 hover:bg-yellow-500/80 dark:hover:bg-slate-300/90 transition-all duration-300 ease-in-out"
           type="submit"
+          onClick={handleButton}
+          disabled={isSending}
         >
-          Registrar reserva
+          {isSending ? (
+            <p>Enviando...</p>
+          ) : (
+            <>
+              <p>
+                <span className="text-sky-950">Registrar reserva usando</span>{" "}
+                <span className="text-blue-950">Pay</span>
+                <span className="text-teal-600">Pal</span>
+              </p>
+              <FaPaypal className="text-blue-950 text-2xl" />
+            </>
+          )}
         </button>
       </div>
     </div>

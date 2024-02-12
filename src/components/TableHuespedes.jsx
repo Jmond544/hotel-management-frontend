@@ -29,9 +29,9 @@ export default function TableHuespedes({ data }) {
           <TableBody>
             {data.map((item) => (
               <TableRow key={item.dni}>
-                <TableCell>{item.nombres}</TableCell>
+                <TableCell>{item.nombre}</TableCell>
                 <TableCell>
-                  <Text>{item.apellidos}</Text>
+                  <Text>{item.apellido}</Text>
                 </TableCell>
                 <TableCell>
                   <Text>{item.dni}</Text>
