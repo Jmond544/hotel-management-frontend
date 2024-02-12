@@ -7,6 +7,7 @@ import RegisterHuespedes from "./pages/RegisterHuespedes";
 import ModifyReservation from "./pages/ModifyReservation";
 import Login from "./pages/Login";
 import { HashRouter, Route, Routes } from "react-router-dom";
+import RegisterConfirmation from "./pages/RegisterConfirmation";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/register-huespedes" element={<RegisterHuespedes />} />
           <Route path="/register-reservation" element={<RegisterReservation />} />
+          <Route path="/register-confirmation" element={<RegisterConfirmation />} />
           <Route path="/modify" element={<ModifyReservation />} />
           <Route path="/login" element={<Login />} />
         </Routes>{" "}

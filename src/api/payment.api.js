@@ -2,7 +2,6 @@ import { instanceAxios } from "./axiosInstance";
 
 export const createPaymentRequest = async ({ data }) => {
   try {
-    console.log(data);
     const response = await instanceAxios.post(
       "/api/payment/create-order",
       data
@@ -17,3 +16,19 @@ export const createPaymentRequest = async ({ data }) => {
     };
   }
 };
+
+export const capturePaymentRequest = async ({ token, PayerID }) => {
+  try {
+    const response = await instanceAxios.get(
+      `/api/payment/capture-order?token=${token}&PayerID=${PayerID}`
+    );
+
+    return { message: response.data, status: response.status };
+  } catch (error) {
+    console.log(error.response.data.message);
+    return {
+      message: error.response.data.message,
+      status: error.response.status,
+    };
+  }
+}
