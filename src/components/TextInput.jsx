@@ -1,3 +1,5 @@
+import ErrorInput from "./ErrorInput";
+
 export default function TextInput({
   formik,
   id,
@@ -28,7 +30,7 @@ export default function TextInput({
         />
       </div>
       {formik.errors[id] && formik.touched[id] ? (
-        <div className="text-red-500 text-sm">* {formik.errors[id]}</div>
+        <ErrorInput errors={formik.errors[id]} />
       ) : null}
     </div>
   );

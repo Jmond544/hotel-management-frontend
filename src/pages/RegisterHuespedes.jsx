@@ -9,24 +9,32 @@ import { useReservationInput } from "../store/reservationInput";
 import { useNavigate } from "react-router-dom";
 import { createReservationRequest } from "../api/reservation.api.js";
 import { createPaymentRequest } from "../api/payment.api.js";
+import { Button, Dialog, DialogPanel } from "@tremor/react";
 
 export default function RegisterReservation() {
   const data = useReservationInput.getState();
   const [huespedes, setHuespedes] = useState(data.huespedes);
   const { setListHuespedes, statusPartialComplete } = useReservationInput();
   const [isSending, setIsSending] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleButton = async () => {
     setIsSending(true);
+    const currentUrl = window.location.origin + "/#/register-confirmation";
+    data.currentUrl = currentUrl;
     const resultPayment = await createPaymentRequest({
       data,
     });
-    console.log(resultPayment);
     if (resultPayment.status == 200) {
       const { message, status } = await createReservationRequest({ data });
       console.log(message);
       console.log(status);
+      window.open(resultPayment.message, "_self");
+    } else {
+      setIsOpen(true);
+      setMessage(resultPayment.message);
     }
     setIsSending(false);
   };
@@ -93,6 +101,19 @@ export default function RegisterReservation() {
 
   return (
     <div className="pt-20 pb-10 flex flex-col gap-4">
+      <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+        <DialogPanel>
+          <h3 className="text-lg font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
+            Error
+          </h3>
+          <p className="mt-2 leading-6 text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+            {message}
+          </p>
+          <Button className="mt-8 w-full" onClick={() => setIsOpen(false)}>
+            Got it!
+          </Button>
+        </DialogPanel>
+      </Dialog>
       <h1 className="text-center text-xl font-bold">Registrar huespedes</h1>
       <div className="px-10 lg:px-20 xl:px-40 flex flex-col gap-6">
         <form onSubmit={formik.handleSubmit} className="">
