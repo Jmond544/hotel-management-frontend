@@ -9,6 +9,7 @@ import SelectRoom from "../sections/SelectRoom";
 import { useNavigate } from "react-router-dom";
 import { useReservationInput } from "../store/reservationInput";
 import { useEffect, useState } from "react";
+import ErrorInput from "../components/ErrorInput";
 
 export default function RegisterReservation() {
   const {
@@ -146,9 +147,7 @@ export default function RegisterReservation() {
                 <option value="premium">Premium</option>
               </select>
               {formik.errors.tipoServicio && formik.touched.tipoServicio ? (
-                <div className="text-red-500 text-sm">
-                  * {formik.errors.tipoServicio}
-                </div>
+                <ErrorInput errors={formik.errors.tipoServicio} />
               ) : null}
             </div>
 
