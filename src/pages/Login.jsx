@@ -1,18 +1,37 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 import ErrorInput from "../components/ErrorInput";
+import { loginRequest } from "../api/user.api";
+import Modal from "../components/Modal";
 
 export default function Login() {
+
+  const [modal, setModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("");
+  const [messageModal, setMessageModal] = useState("");
+  const [statusOperationModal, setStatusOperationModal] = useState(false);
   const formik = useFormik({
     initialValues: {
       mail: "",
       password: "",
     },
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       formik.resetForm();
-      alert(JSON.stringify(values, null, 2));
+      const result = await loginRequest({ data: values });
+      console.log(result)
+      if (result.status === 200) {
+        setTitleModal("¡¡Operacion exitosa!!");
+        setMessageModal("Se ha enviado un código de verificación a su mail");
+        setStatusOperationModal(true);
+      }else{
+        setTitleModal("¡¡Operacion fallida!!");
+        setMessageModal(result.message);
+        setStatusOperationModal(false);
+      }
+      setModal(true);
     },
 
     validate: (values) => {
@@ -39,6 +58,15 @@ export default function Login() {
   });
   return (
     <div className="pt-16 justify-center flex items-center h-screen">
+      {modal && (
+        <Modal
+          title={titleModal}
+          message={messageModal}
+          statusOperation={statusOperationModal}
+          pathNavigate="/verify-login"
+          setModal={setModal}
+        />
+      )}
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 items-center shadow-xl p-10 border rounded-2xl border-slate-900/20 dark:border-slate-300/20"
