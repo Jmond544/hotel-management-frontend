@@ -42,7 +42,6 @@ export default function VerifyLogin() {
           setMessageModal("Código correcto");
           setStatusOperationModal(true);
           setPathNavigate("/dashboard");
-          console.log(response);
           localStorage.setItem("token", response.token);
         } else {
           setTitleModal("¡¡Operacion fallida!!");
