@@ -5,6 +5,8 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import ErrorInput from "../components/ErrorInput";
 import { loginRequest } from "../api/user.api";
 import Modal from "../components/Modal";
+import { internalUser } from "../store/user.store.js";
+import { useStore } from "zustand";
 
 export default function Login() {
 
@@ -12,6 +14,10 @@ export default function Login() {
   const [titleModal, setTitleModal] = useState("");
   const [messageModal, setMessageModal] = useState("");
   const [statusOperationModal, setStatusOperationModal] = useState(false);
+  const [pathNavigate, setPathNavigate] = useState("/");
+
+  const { setMail, setPassword } = useStore(internalUser);
+
   const formik = useFormik({
     initialValues: {
       mail: "",
@@ -26,10 +32,14 @@ export default function Login() {
         setTitleModal("¡¡Operacion exitosa!!");
         setMessageModal("Se ha enviado un código de verificación a su mail");
         setStatusOperationModal(true);
+        setMail({ mail: values.mail });
+        setPassword({ password: values.password });
+        setPathNavigate("/verify-login");
       }else{
         setTitleModal("¡¡Operacion fallida!!");
         setMessageModal(result.message);
         setStatusOperationModal(false);
+        setPathNavigate("/login");
       }
       setModal(true);
     },
@@ -63,7 +73,7 @@ export default function Login() {
           title={titleModal}
           message={messageModal}
           statusOperation={statusOperationModal}
-          pathNavigate="/verify-login"
+          pathNavigate={pathNavigate}
           setModal={setModal}
         />
       )}

@@ -12,3 +12,15 @@ export const loginRequest = async ({ data }) => {
     };
   }
 };
+
+export const verifyLoginRequest = async ({ data }) => {
+  try {
+    const response = await instanceAxios.post("/api/user/verify", data);
+    return { message: response.data.message, status: response.status };
+  } catch (error) {
+    return {
+      message: error.response.data.error,
+      status: error.response.status,
+    };
+  }
+}

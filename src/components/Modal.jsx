@@ -2,18 +2,21 @@ import { FaBackward } from "react-icons/fa";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
-export default function Modal({ title, message, statusOperation, pathNavigate, setModal }) {
+export default function Modal({
+  title,
+  message,
+  statusOperation,
+  pathNavigate,
+  setModal,
+}) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    function handleModal() {
-        console.log("click");
-        if (statusOperation) {
-            navigate(pathNavigate);
-        } else {
-            setModal(false);
-        }
+  function handleModal() {
+    if (!statusOperation) {
+      setModal(false);
     }
+    navigate(pathNavigate);
+  }
 
   return (
     <>
