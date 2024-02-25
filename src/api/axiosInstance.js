@@ -6,8 +6,6 @@ export const instanceAxios = axios.create({
   //timeout: 1000,
   headers: {
     "Content-Type": "application/json",
-    "X-Access-Token": localStorage.getItem("user_token")
-      ? JSON.parse(localStorage.getItem("user_token")).token
-      : "",
+    "X-Access-Token": localStorage.getItem("token"),
   },
 });

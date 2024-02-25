@@ -1,18 +1,53 @@
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
-import ErrorInput from "../components/ErrorInput";
+import ErrorInput from "../../components/ErrorInput.jsx";
+import { loginRequest } from "../../api/user.api.js";
+import Modal from "../../components/Modal.jsx";
+import { internalUser } from "../../store/user.store.js";
+import { useStore } from "zustand";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+  const [modal, setModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("");
+  const [messageModal, setMessageModal] = useState("");
+  const [statusOperationModal, setStatusOperationModal] = useState(false);
+  const [pathNavigate, setPathNavigate] = useState("/");
+  const [estadoBoton, setEstadoBoton] = useState("Ingresar");
+
+  const { setMail, setPassword } = useStore(internalUser);
+
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       mail: "",
       password: "",
     },
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      setEstadoBoton("Enviando...");
       formik.resetForm();
-      alert(JSON.stringify(values, null, 2));
+      const result = await loginRequest({ data: values });
+      console.log(result)
+      if (result.status === 200) {
+        setTitleModal("¡¡Operacion exitosa!!");
+        setMessageModal("Se ha enviado un código de verificación a su mail");
+        setStatusOperationModal(true);
+        setMail({ mail: values.mail });
+        setPassword({ password: values.password });
+        setPathNavigate("/verify-login");
+      }else{
+        setTitleModal("¡¡Operacion fallida!!");
+        setMessageModal(result.message);
+        setStatusOperationModal(false);
+        setPathNavigate("/login");
+      }
+      setModal(true);
+      setEstadoBoton("Ingresar");
     },
 
     validate: (values) => {
@@ -37,8 +72,25 @@ export default function Login() {
       return errors;
     },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   return (
     <div className="pt-16 justify-center flex items-center h-screen">
+      {modal && (
+        <Modal
+          title={titleModal}
+          message={messageModal}
+          statusOperation={statusOperationModal}
+          pathNavigate={pathNavigate}
+          setModal={setModal}
+        />
+      )}
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 items-center shadow-xl p-10 border rounded-2xl border-slate-900/20 dark:border-slate-300/20"
@@ -82,7 +134,7 @@ export default function Login() {
           type="submit"
           className="bg-slate-900 text-slate-100 w-full p-2 rounded-full"
         >
-          Ingresar
+          {estadoBoton}
         </button>
       </form>
     </div>
