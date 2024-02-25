@@ -8,9 +8,9 @@ import Modal from "../../components/Modal.jsx";
 import { internalUser } from "../../store/user.store.js";
 import { useStore } from "zustand";
 import { useNavigate } from "react-router-dom";
+import { getProfileRequest } from "../../api/user.api.js";
 
 export default function Login() {
-
   const [modal, setModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [messageModal, setMessageModal] = useState("");
@@ -32,7 +32,7 @@ export default function Login() {
       setEstadoBoton("Enviando...");
       formik.resetForm();
       const result = await loginRequest({ data: values });
-      console.log(result)
+      console.log(result);
       if (result.status === 200) {
         setTitleModal("¡¡Operacion exitosa!!");
         setMessageModal("Se ha enviado un código de verificación a su mail");
@@ -40,7 +40,7 @@ export default function Login() {
         setMail({ mail: values.mail });
         setPassword({ password: values.password });
         setPathNavigate("/verify-login");
-      }else{
+      } else {
         setTitleModal("¡¡Operacion fallida!!");
         setMessageModal(result.message);
         setStatusOperationModal(false);
@@ -76,7 +76,16 @@ export default function Login() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/dashboard");
+      const fetchData = async () => {
+        await getProfileRequest().then((response) => {
+          if (response.status === 200) {
+            navigate("/dashboard");
+          } else {
+            localStorage.removeItem("token");
+          }
+        });
+      };
+      fetchData();
     }
   }, []);
 

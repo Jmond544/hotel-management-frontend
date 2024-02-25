@@ -28,7 +28,6 @@ export const verifyLoginRequest = async ({ data }) => {
 export const getProfileRequest = async () => {
   try {
     const response = await instanceAxios.get("/api/user/profile");
-    console.log(response)
     return { data: response.data, status: response.status};
   } catch (error) {
     return {

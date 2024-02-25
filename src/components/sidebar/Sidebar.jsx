@@ -35,7 +35,6 @@ export default function Sidebar() {
     if (!token) {
       navigate("/login");
     }
-
     const fetchData = async () => {
       try {
         const response = await getProfileRequest();
@@ -50,7 +49,7 @@ export default function Sidebar() {
             setListItems(AdministracionItems);
           }
         } else {
-          navigate("/login");
+          console.log(response)
         }
       } catch (error) {
         console.error(error);
