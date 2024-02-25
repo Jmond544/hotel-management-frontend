@@ -5,10 +5,10 @@ import Header from "./components/Header";
 import RegisterReservation from "./pages/RegisterReservation";
 import RegisterHuespedes from "./pages/RegisterHuespedes";
 import ModifyReservation from "./pages/ModifyReservation";
-import Login from "./pages/Login";
 import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import RegisterConfirmation from "./pages/RegisterConfirmation";
-import VerifyLogin from "./pages/VerifyLogin";
+import Login from "./pages/login/Login";
+import VerifyLogin from "./pages/login/VerifyLogin";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Sidebar from "./components/sidebar/Sidebar";
 

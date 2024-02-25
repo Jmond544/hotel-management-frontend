@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { IoMail } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
-import ErrorInput from "../components/ErrorInput";
-import { loginRequest } from "../api/user.api";
-import Modal from "../components/Modal";
-import { internalUser } from "../store/user.store.js";
+import ErrorInput from "../../components/ErrorInput.jsx";
+import { loginRequest } from "../../api/user.api.js";
+import Modal from "../../components/Modal.jsx";
+import { internalUser } from "../../store/user.store.js";
 import { useStore } from "zustand";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
@@ -15,8 +16,11 @@ export default function Login() {
   const [messageModal, setMessageModal] = useState("");
   const [statusOperationModal, setStatusOperationModal] = useState(false);
   const [pathNavigate, setPathNavigate] = useState("/");
+  const [estadoBoton, setEstadoBoton] = useState("Ingresar");
 
   const { setMail, setPassword } = useStore(internalUser);
+
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -25,6 +29,7 @@ export default function Login() {
     },
 
     onSubmit: async (values) => {
+      setEstadoBoton("Enviando...");
       formik.resetForm();
       const result = await loginRequest({ data: values });
       console.log(result)
@@ -42,6 +47,7 @@ export default function Login() {
         setPathNavigate("/login");
       }
       setModal(true);
+      setEstadoBoton("Ingresar");
     },
 
     validate: (values) => {
@@ -66,6 +72,14 @@ export default function Login() {
       return errors;
     },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
+
   return (
     <div className="pt-16 justify-center flex items-center h-screen">
       {modal && (
@@ -120,7 +134,7 @@ export default function Login() {
           type="submit"
           className="bg-slate-900 text-slate-100 w-full p-2 rounded-full"
         >
-          Ingresar
+          {estadoBoton}
         </button>
       </form>
     </div>

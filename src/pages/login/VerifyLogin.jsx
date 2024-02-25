@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "../components/Modal";
-import { verifyLoginRequest } from "../api/user.api.js";
-import { internalUser } from "../store/user.store.js";
+import Modal from "../../components/Modal.jsx";
+import { verifyLoginRequest } from "../../api/user.api.js";
+import { internalUser } from "../../store/user.store.js";
 import { useStore } from "zustand";
 
 export default function VerifyLogin() {
@@ -42,7 +42,8 @@ export default function VerifyLogin() {
           setMessageModal("Código correcto");
           setStatusOperationModal(true);
           setPathNavigate("/dashboard");
-          console.log(response.message);
+          console.log(response);
+          localStorage.setItem("token", response.token);
         } else {
           setTitleModal("¡¡Operacion fallida!!");
           setMessageModal(response.message);
