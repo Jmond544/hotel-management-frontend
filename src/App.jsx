@@ -11,6 +11,9 @@ import Login from "./pages/login/Login";
 import VerifyLogin from "./pages/login/VerifyLogin";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Sidebar from "./components/sidebar/Sidebar";
+import GestionReservas from "./pages/dashboard/GestionReservas";
+import GestionCheckIn from "./pages/dashboard/GestionCheckIn";
+import GestionCheckOut from "./pages/dashboard/GestionCheckOut";
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-login" element={<VerifyLogin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/gestionar-reservas" element={<GestionReservas />} />
+        <Route path="/dashboard/gestionar-check-in" element={<GestionCheckIn />} />
+        <Route path="/dashboard/gestionar-check-out" element={<GestionCheckOut />} />
       </Routes>
     </div>
   );
