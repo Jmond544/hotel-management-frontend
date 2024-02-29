@@ -139,7 +139,7 @@ export default function GestionCheckIn() {
           setModal={setModal}
         />
       )}
-      <h1 className="font-bold text-xl text-center">Gestion Reservas</h1>
+      <h1 className="font-bold text-xl text-center">Gestion Check In</h1>
       <div className="flex flex-row justify-between">
         <select
           id="filtro"
