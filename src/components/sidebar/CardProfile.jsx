@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 export default function CardProfile({ image, isSidebarOpen, name, email }) {
+  const navigate = useNavigate();
   return (
     <div
       className={`bg-slate-950 ${isSidebarOpen ? "mx-4 py-3 px-4 gap-3 justify-between" : "justify-center mx-auto"} flex flex-row  items-center  rounded-full cursor-pointer`}
+      onClick={() => navigate("/dashboard")}
     >
       <img src={image} alt="profile" className="rounded-full h-10" />
       <div
