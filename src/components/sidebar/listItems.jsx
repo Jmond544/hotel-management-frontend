@@ -1,5 +1,4 @@
 import { FaRegCalendarCheck } from "react-icons/fa6";
-import { FaCashRegister } from "react-icons/fa6";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 import { FaOutdent } from "react-icons/fa6";
 
