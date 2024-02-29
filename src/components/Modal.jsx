@@ -36,7 +36,7 @@ export default function Modal({
             ) : (
               <>
                 <FaBackward />
-                Volver a intentar
+                Volver
               </>
             )}
           </button>
