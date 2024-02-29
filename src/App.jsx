@@ -69,6 +69,10 @@ function AppContent() {
           element={<DetailsReservation />}
         />
         <Route
+          path="/dashboard/gestionar-check-in/detalles/:id"
+          element={<DetailsReservation />}
+        />
+        <Route
           path="/dashboard/gestionar-reservas/editar/:id"
           element={<ModifyReservationByID />}
         />
