@@ -10,11 +10,6 @@ export const RecepcionItems = [
     link: "/dashboard/gestionar-reservas",
   },
   {
-    title: "Registrar reserva",
-    icon: <FaCashRegister />,
-    link: "/dashboard/registrar-reserva",
-  },
-  {
     title: "Gestionar Check-in",
     icon: <FaBuildingCircleCheck />,
     link: "/dashboard/gestionar-check-in",

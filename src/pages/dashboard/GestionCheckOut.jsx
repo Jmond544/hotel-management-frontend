@@ -290,7 +290,7 @@ export default function GestionCheckOut() {
                     fileName="boleta.pdf"
                     className="bg-slate-900 p-1 rounded-lg"
                   >
-                    {({ blob, url, loading, error }) =>
+                    {({ loading }) =>
                       loading ? (
                         <button>Cargando documento</button>
                       ) : (
