@@ -17,6 +17,10 @@ import {
 import { useRef } from "react";
 
 function transformResult(result) {
+  if (!Array.isArray(result)) {
+    console.error("Error: result is not an array");
+    return [];
+  }
   const grouped = result.reduce((acc, item) => {
     const { numero_habitacion, ...rest } = item;
     const key = JSON.stringify(rest);
@@ -96,7 +100,7 @@ export default function GestionCheckIn() {
       let status = true;
       listaHabitaciones.forEach(async (id) => {
         const result = await markRoomAsOccupied({ numeroHabitacion: id });
-        status = status & result.status === 200;
+        status = status & (result.status === 200);
       });
 
       if (status) {

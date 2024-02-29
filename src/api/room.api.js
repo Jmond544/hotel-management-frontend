@@ -33,3 +33,15 @@ export const markRoomAsOccupied = async ({ numeroHabitacion }) => {
     return error.response.data.message;
   }
 };
+
+export const markRoomAsFree = async ({ numeroHabitacion }) => {
+  try {
+    const response = await instanceAxios.post(`/api/room/${numeroHabitacion}`, {
+      estado: "disponible",
+    });
+    return response;
+  } catch (error) {
+    console.log(error.response.data.message);
+    return error.response.data.message;
+  }
+}

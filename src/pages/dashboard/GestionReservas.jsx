@@ -21,6 +21,10 @@ import { useRef } from "react";
 
 function transformResult(result) {
   const grouped = result.reduce((acc, item) => {
+    if (!Array.isArray(result)) {
+      console.error("Error: result is not an array");
+      return [];
+    }
     const { numero_habitacion, ...rest } = item;
     const key = JSON.stringify(rest);
 

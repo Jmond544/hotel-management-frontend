@@ -1,14 +1,8 @@
 import DatePicker from "react-datepicker";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import Modal from "../../components/Modal";
-import PDF from "../../components/PDF";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import {
-  queryReservationsRequest,
-  updateStatusPayment,
-} from "../../api/reservation.api";
-import { getRooms, markRoomAsFree } from "../../api/room.api";
+import { queryReservationsRequest } from "../../api/reservation.api";
+import { getRooms } from "../../api/room.api";
 import { Link } from "react-router-dom";
 import {
   Table,
@@ -19,12 +13,9 @@ import {
   TableCell,
   Badge,
 } from "@tremor/react";
+import { useRef } from "react";
 
 function transformResult(result) {
-  if (!Array.isArray(result)) {
-    console.error("Error: result is not an array");
-    return [];
-  }
   const grouped = result.reduce((acc, item) => {
     const { numero_habitacion, ...rest } = item;
     const key = JSON.stringify(rest);
@@ -41,7 +32,7 @@ function transformResult(result) {
   return Object.values(grouped);
 }
 
-export default function GestionCheckOut() {
+export default function TableFilters({ title, listOperations }) {
   const [filtro, setFiltro] = useState("");
   const filtroName = useRef("");
   const [search, setSearch] = useState("");
@@ -50,10 +41,6 @@ export default function GestionCheckOut() {
   );
   const [fechaInicio, setFechaInicio] = useState("2023-10-02");
   const [data, setData] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalStatus, setModalStatus] = useState(false);
   const [rooms, setRooms] = useState([]);
 
   async function refreshRooms() {
@@ -99,38 +86,6 @@ export default function GestionCheckOut() {
     setData(transformResult(result));
   };
 
-  const handleEstadoPago =
-    ({ id, listaHabitaciones }) =>
-    async () => {
-      setModalStatus(false);
-      let status = true;
-      listaHabitaciones.forEach(async (numero) => {
-        const result = await markRoomAsFree({ numeroHabitacion: numero });
-        status = status & (result.status === 200);
-      });
-
-      const response = await updateStatusPayment({ id, status: "pagado" });
-
-      status = status & (response.status === 200);
-
-      refreshRooms();
-
-      if (status) {
-        setModal(true);
-        setModalTitle("Proceso exitoso");
-        setModalMessage(
-          "Las habitaciones se han marcado como libres y la reserva se ha marcado como pagada."
-        );
-      } else {
-        setModal(true);
-        setModalTitle("Error");
-        if (!response.status === 200) {
-          setModalMessage("No se pudo marcar la reserva como pagada.");
-        } else {
-          setModalMessage("No se pudo marcar las habitaciones como libres.");
-        }
-      }
-    };
   useEffect(() => {
     const fetchData = async () => {
       const result = await queryReservationsRequest({
@@ -148,16 +103,7 @@ export default function GestionCheckOut() {
   }, []);
   return (
     <div className="p-10 flex flex-col gap-5 w-full">
-      {modal && (
-        <Modal
-          title={modalTitle}
-          message={modalMessage}
-          statusOperation={modalStatus}
-          pathNavigate="/dashboard/gestionar-check-out"
-          setModal={setModal}
-        />
-      )}
-      <h1 className="font-bold text-xl text-center">Gestion Check Out</h1>
+      <h1 className="font-bold text-xl text-center">{title}</h1>
       <div className="flex flex-row justify-between">
         <select
           id="filtro"
@@ -275,29 +221,20 @@ export default function GestionCheckOut() {
               </TableCell>
               <TableCell>
                 <div className="flex flex-col gap-1 text-slate-50 text-center text-xs font-bold">
-                  <Link
-                    to={`/dashboard/gestionar-check-out`}
-                    className="bg-slate-900 p-1 rounded-lg"
-                    onClick={handleEstadoPago({
-                      id: item.id,
-                      listaHabitaciones: item.numero_habitacion,
-                    })}
-                  >
-                    Actualizar <br /> estado pago
-                  </Link>
-                  <PDFDownloadLink
-                    document={<PDF id={item.id} />}
-                    fileName="boleta.pdf"
-                    className="bg-slate-900 p-1 rounded-lg"
-                  >
-                    {({ blob, url, loading, error }) =>
-                      loading ? (
-                        <button>Cargando documento</button>
-                      ) : (
-                        <button>Generar boleta</button>
-                      )
-                    }
-                  </PDFDownloadLink>
+                  {listOperations.map((operation, index) => (
+                    <Link
+                      to={
+                        operation.withId
+                          ? `/dashboard${operation.path}/${item.id}`
+                          : `/dashboard${operation.path}`
+                      }
+                      className="bg-slate-900 p-1 rounded-lg"
+                      key={index}
+                      onClick={operation.onClick({valor: item.numero_habitacion})}
+                    >
+                      {operation.name}
+                    </Link>
+                  ))}
                 </div>
               </TableCell>
             </TableRow>

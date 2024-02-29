@@ -20,6 +20,7 @@ export const queryReservationsRequest = async ({
   fechaFin,
 }) => {
   try {
+    console.log(tipoFiltro, valor, fechaInicio, fechaFin)
     const response = await instanceAxios.get(
       `/api/reservation/query?tipoFiltro=${tipoFiltro}&valor=${valor}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
     );
@@ -52,3 +53,18 @@ export const getReservationByIdRequest = async ({ id }) => {
     return error.response.data.message;
   }
 };
+
+export const updateStatusPayment = async ({ id, status }) => {
+  try {
+    const response = await instanceAxios.put(`/api/reservation/${id}`, {
+      status,
+    });
+    return { message: response.data.message, status: response.status };
+  } catch (error) {
+    console.log(error.response.data.message);
+    return {
+      message: error.response.data.message,
+      status: error.response.status,
+    };
+  }
+}
