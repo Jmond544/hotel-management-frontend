@@ -41,4 +41,14 @@ export const deleteReservationRequest = async ({ id }) => {
       status: error.response.status,
     };
   }
-}
+};
+
+export const getReservationByIdRequest = async ({ id }) => {
+  try {
+    const response = await instanceAxios.get(`/api/reservation/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data.message);
+    return error.response.data.message;
+  }
+};

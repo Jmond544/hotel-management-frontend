@@ -6,6 +6,7 @@ import {
   queryReservationsRequest,
   deleteReservationRequest,
 } from "../../api/reservation.api";
+import { getRooms } from "../../api/room.api";
 import { Link } from "react-router-dom";
 import {
   Table,
@@ -48,7 +49,23 @@ export default function GestionReservas() {
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalStatus, setModalStatus] = useState(false);
+  const [rooms, setRooms] = useState([]);
+
+  async function refreshRooms() {
+    await getRooms().then((data) => {
+      setRooms(data);
+    });
+  }
+
+  function getEstadoByNumeroHabitacion(numeroHabitacion) {
+    const room = rooms.find(
+      (room) => room.numero_habitacion === numeroHabitacion
+    );
+    return room.estado;
+  }
+
   const handleSearch = async () => {
+    refreshRooms();
     if (filtro === "" || fechaInicio === "" || fechaFin === "") {
       alert("Faltan campos por llenar");
       return;
@@ -102,6 +119,8 @@ export default function GestionReservas() {
       });
       setData(transformResult(result));
     };
+
+    refreshRooms();
 
     fetchData();
   }, []);
@@ -209,7 +228,7 @@ export default function GestionReservas() {
                 <div className="flex flex-col gap-1">
                   {item.numero_habitacion.map((item, index) => (
                     <Badge key={index} color="orange">
-                      {item}
+                      {item} - {getEstadoByNumeroHabitacion(item)}
                     </Badge>
                   ))}
                 </div>
