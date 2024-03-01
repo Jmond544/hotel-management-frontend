@@ -4,13 +4,21 @@ import About from "./pages/About";
 import Header from "./components/Header";
 import RegisterReservation from "./pages/RegisterReservation";
 import RegisterHuespedes from "./pages/RegisterHuespedes";
-import ModifyReservation from "./pages/ModifyReservation";
+import ModifyReservation from "./pages/ModifyReservation/ModifyReservation";
+import RegisterToken from "./pages/ModifyReservation/RegisterToken";
 import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import RegisterConfirmation from "./pages/RegisterConfirmation";
 import Login from "./pages/login/Login";
 import VerifyLogin from "./pages/login/VerifyLogin";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Sidebar from "./components/sidebar/Sidebar";
+import GestionReservas from "./pages/dashboard/GestionReservas";
+import GestionCheckIn from "./pages/dashboard/GestionCheckIn";
+import GestionCheckOut from "./pages/dashboard/GestionCheckOut";
+import DetailsReservation from "./pages/DetailsReservation";
+import ModifyReservationByID from "./pages/ModifyReservationByID";
+import ChangePassword from "./pages/dashboard/ChangePassword";
+import NewPassword from "./pages/dashboard/NewPassword";
 
 function App() {
   return (
@@ -32,8 +40,8 @@ function AppContent() {
   };
 
   return (
-    <div className={`flex ${shouldShowHeader()? "flex-col":"flex-row"}`}>
-      {shouldShowHeader()? <Header /> : <Sidebar />}
+    <div className={`flex ${shouldShowHeader() ? "flex-col" : "flex-row"}`}>
+      {shouldShowHeader() ? <Header /> : <Sidebar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -43,10 +51,38 @@ function AppContent() {
           path="/register-confirmation"
           element={<RegisterConfirmation />}
         />
-        <Route path="/modify" element={<ModifyReservation />} />
+        <Route path="/modify/:id" element={<ModifyReservation />} />
+        <Route path="/modify" element={<RegisterToken />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-login" element={<VerifyLogin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard/gestionar-reservas"
+          element={<GestionReservas />}
+        />
+        <Route
+          path="/dashboard/gestionar-check-in"
+          element={<GestionCheckIn />}
+        />
+        <Route
+          path="/dashboard/gestionar-check-out"
+          element={<GestionCheckOut />}
+        />
+        <Route
+          path="/dashboard/gestionar-reservas/detalles/:id"
+          element={<DetailsReservation />}
+        />
+        <Route
+          path="/dashboard/gestionar-check-in/detalles/:id"
+          element={<DetailsReservation />}
+        />
+        <Route
+          path="/dashboard/gestionar-reservas/editar/:id"
+          element={<ModifyReservationByID />}
+        />
+        <Route path="/dashboard/change-password" element={<ChangePassword />} />
+        <Route path="/dashboard/new-password" element={<NewPassword />} />
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </div>
   );

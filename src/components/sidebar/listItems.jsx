@@ -1,5 +1,4 @@
 import { FaRegCalendarCheck } from "react-icons/fa6";
-import { FaCashRegister } from "react-icons/fa6";
 import { FaBuildingCircleCheck } from "react-icons/fa6";
 import { FaOutdent } from "react-icons/fa6";
 
@@ -8,11 +7,6 @@ export const RecepcionItems = [
     title: "Gestionar reservas",
     icon: <FaRegCalendarCheck />,
     link: "/dashboard/gestionar-reservas",
-  },
-  {
-    title: "Registrar reserva",
-    icon: <FaCashRegister />,
-    link: "/dashboard/registrar-reserva",
   },
   {
     title: "Gestionar Check-in",

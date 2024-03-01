@@ -20,7 +20,7 @@ export default function Modal({
 
   return (
     <>
-      <div className="w-screen h-screen flex items-center justify-center align-middle p-20 absolute top-0 bg-black/50 z-50 backdrop-blur">
+      <div className="w-screen h-screen flex items-center justify-center align-middle p-20 absolute top-0 left-0 bg-black/50 z-50 backdrop-blur">
         <div className="w-96 h-72 bg-white rounded-xl relative flex flex-col justify-around shadow-xl p-7 border border-slate-900/20 dark:border-slate-300/20">
           <h1 className="text-2xl font-bold">{title}</h1>
           <p className="text-wrap">{message}</p>
@@ -36,7 +36,7 @@ export default function Modal({
             ) : (
               <>
                 <FaBackward />
-                Volver a intentar
+                Volver
               </>
             )}
           </button>

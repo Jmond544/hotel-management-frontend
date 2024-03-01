@@ -61,7 +61,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-gray-900 h-screen text-white ${isSidebarOpen ? "w-64" : "w-16"} flex flex-col align-middle gap-4 transition-all duration-300`}
+      className={`bg-gray-900 h-screen text-white ${isSidebarOpen ? "min-w-64" : "max-w-16"} flex flex-col align-middle gap-4 transition-all duration-300`}
     >
       <div className="p-4 flex flex-row gap-2 items-center">
         <GiDolphin
