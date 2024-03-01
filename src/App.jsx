@@ -17,6 +17,8 @@ import GestionCheckIn from "./pages/dashboard/GestionCheckIn";
 import GestionCheckOut from "./pages/dashboard/GestionCheckOut";
 import DetailsReservation from "./pages/DetailsReservation";
 import ModifyReservationByID from "./pages/ModifyReservationByID";
+import ChangePassword from "./pages/dashboard/ChangePassword";
+import NewPassword from "./pages/dashboard/NewPassword";
 
 function App() {
   return (
@@ -78,6 +80,8 @@ function AppContent() {
           path="/dashboard/gestionar-reservas/editar/:id"
           element={<ModifyReservationByID />}
         />
+        <Route path="/dashboard/change-password" element={<ChangePassword />} />
+        <Route path="/dashboard/new-password" element={<NewPassword />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </div>
