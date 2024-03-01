@@ -4,7 +4,8 @@ import About from "./pages/About";
 import Header from "./components/Header";
 import RegisterReservation from "./pages/RegisterReservation";
 import RegisterHuespedes from "./pages/RegisterHuespedes";
-import ModifyReservation from "./pages/ModifyReservation";
+import ModifyReservation from "./pages/ModifyReservation/ModifyReservation";
+import RegisterToken from "./pages/ModifyReservation/RegisterToken";
 import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import RegisterConfirmation from "./pages/RegisterConfirmation";
 import Login from "./pages/login/Login";
@@ -48,7 +49,8 @@ function AppContent() {
           path="/register-confirmation"
           element={<RegisterConfirmation />}
         />
-        <Route path="/modify" element={<ModifyReservation />} />
+        <Route path="/modify/:id" element={<ModifyReservation />} />
+        <Route path="/modify" element={<RegisterToken />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-login" element={<VerifyLogin />} />
         <Route path="/dashboard" element={<Dashboard />} />

@@ -1,8 +1,7 @@
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getReservationByIdRequest } from "../api/reservation.api";
 import { Badge } from "@tremor/react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { getRoomByNumberRequest } from "../api/room.api";
 
@@ -14,7 +13,6 @@ export default function DetailsReservation() {
   const [modal, setModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  const [modalStatus, setModalStatus] = useState(false);
 
   const handleClicked = () => {
     navigate(-1);
@@ -51,7 +49,7 @@ export default function DetailsReservation() {
             <Modal
               title={modalTitle}
               message={modalMessage}
-              statusOperation={modalStatus}
+              statusOperation={false}
               pathNavigate={location.pathname}
               setModal={setModal}
             />

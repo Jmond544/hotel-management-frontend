@@ -20,7 +20,7 @@ export const queryReservationsRequest = async ({
   fechaFin,
 }) => {
   try {
-    console.log(tipoFiltro, valor, fechaInicio, fechaFin)
+    console.log(tipoFiltro, valor, fechaInicio, fechaFin);
     const response = await instanceAxios.get(
       `/api/reservation/query?tipoFiltro=${tipoFiltro}&valor=${valor}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
     );
@@ -67,4 +67,33 @@ export const updateStatusPayment = async ({ id, status }) => {
       status: error.response.status,
     };
   }
-}
+};
+
+export const updateReservationRequest = async ({
+  id,
+  tipoServicio,
+  fechaInicio,
+  fechaFin,
+  mailPago,
+  telefonoPago,
+  habitaciones,
+}) => {
+  try {
+    const formatHabitaciones = habitaciones.map((habitacion) => ({ numero: habitacion }));
+    const response = await instanceAxios.put(`/api/reservation/update/${id}`, {
+      tipoServicio,
+      fechaInicio,
+      fechaFin,
+      mailPago,
+      telefonoPago,
+      habitaciones: formatHabitaciones,
+    });
+    return { message: response.data.message, status: response.status };
+  } catch (error) {
+    console.log(error.response.data.message);
+    return {
+      message: error.response.data.message,
+      status: error.response.status,
+    };
+  }
+};

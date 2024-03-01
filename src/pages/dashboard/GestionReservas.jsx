@@ -265,7 +265,7 @@ export default function GestionReservas() {
                     Eliminar
                   </Link>
                   <Link
-                    to={`/dashboard/gestionar-reservas/editar/${item.id}`}
+                    to={`/modify/${item.id}`}
                     className="bg-slate-900 p-1 rounded-lg"
                   >
                     Editar
