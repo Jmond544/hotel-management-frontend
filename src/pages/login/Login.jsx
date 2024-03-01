@@ -7,7 +7,7 @@ import { loginRequest } from "../../api/user.api.js";
 import Modal from "../../components/Modal.jsx";
 import { internalUser } from "../../store/user.store.js";
 import { useStore } from "zustand";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getProfileRequest } from "../../api/user.api.js";
 
 export default function Login() {
@@ -145,6 +145,10 @@ export default function Login() {
         >
           {estadoBoton}
         </button>
+
+        <Link to="/login/update-password" className="text-slate-800 hover:text-slate-600 text-sm italic">
+          ¿Olvidaste tu contraseña?
+        </Link>
       </form>
     </div>
   );

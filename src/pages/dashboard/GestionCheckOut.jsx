@@ -46,7 +46,7 @@ export default function GestionCheckOut() {
   const filtroName = useRef("");
   const [search, setSearch] = useState("");
   const [fechaFin, setFechaFin] = useState(
-    new Date().toISOString().slice(0, 10)
+    new Date()
   );
   const [fechaInicio, setFechaInicio] = useState("2023-10-02");
   const [data, setData] = useState([]);

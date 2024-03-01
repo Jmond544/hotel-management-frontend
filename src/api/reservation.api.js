@@ -20,9 +20,9 @@ export const queryReservationsRequest = async ({
   fechaFin,
 }) => {
   try {
-    console.log(tipoFiltro, valor, fechaInicio, fechaFin);
+    console.log(tipoFiltro, valor, fechaInicio, fechaFin.toISOString().slice(0, 10));
     const response = await instanceAxios.get(
-      `/api/reservation/query?tipoFiltro=${tipoFiltro}&valor=${valor}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+      `/api/reservation/query?tipoFiltro=${tipoFiltro}&valor=${valor}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin.toISOString().slice(0, 10)}`
     );
     return response.data;
   } catch (error) {
