@@ -45,7 +45,7 @@ export default function GestionReservas() {
   const filtroName = useRef("");
   const [search, setSearch] = useState("");
   const [fechaFin, setFechaFin] = useState(
-    new Date().toISOString().slice(0, 10)
+    new Date()
   );
   const [fechaInicio, setFechaInicio] = useState("2023-10-02");
   const [data, setData] = useState([]);
@@ -108,7 +108,7 @@ export default function GestionReservas() {
         tipoFiltro: "numeroHabitacion",
         valor: "all",
         fechaInicio: fechaInicio,
-        fechaFin: fechaFin,
+        fechaFin: fechaFin.toString,
       });
       setData(transformResult(result));
     }

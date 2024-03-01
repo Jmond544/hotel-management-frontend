@@ -41,9 +41,7 @@ export default function GestionCheckIn() {
   const [filtro, setFiltro] = useState("");
   const filtroName = useRef("");
   const [search, setSearch] = useState("");
-  const [fechaFin, setFechaFin] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
+  const [fechaFin, setFechaFin] = useState(new Date());
   const [fechaInicio, setFechaInicio] = useState("2023-10-02");
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
